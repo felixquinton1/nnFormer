@@ -48,9 +48,9 @@ def get_default_configuration(network, task, network_trainer, plans_identifier=d
     plans = load_pickle(plans_file)
     # Maybe have two kinds of plans,choose the later one 
     if len(plans['plans_per_stage'])==2:
-            Stage=1
-        else:
-            Stage=0
+        Stage=1
+    else:
+        Stage=0
     if task=='Task001_ACDC':
         plans['plans_per_stage'][Stage]['batch_size']=4
         plans['plans_per_stage'][Stage]['patch_size']=np.array([14,160,160])
@@ -69,6 +69,12 @@ def get_default_configuration(network, task, network_trainer, plans_identifier=d
         plans['plans_per_stage'][Stage]['batch_size']=2
         plans['plans_per_stage'][Stage]['patch_size']=np.array([128,128,128])
         pickle_file = open(plans_file,'wb')
+        pickle.dump(plans, pickle_file)
+        pickle_file.close()
+    elif task == 'Task500_LiverTumour':
+        plans['plans_per_stage'][Stage]['batch_size'] = 1
+        plans['plans_per_stage'][Stage]['patch_size'] = np.array([128, 128, 64])
+        pickle_file = open(plans_file, 'wb')
         pickle.dump(plans, pickle_file)
         pickle_file.close()
     possible_stages = list(plans['plans_per_stage'].keys())

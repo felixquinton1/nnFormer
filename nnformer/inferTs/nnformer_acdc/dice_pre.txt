@@ -1,0 +1,13 @@
+********************
+Mean_Dice
+Dice_rvnan
+Dice_myonan
+Dice_lvnan
+Mean_HD
+HD_rvnan
+HD_myonan
+HD_lvnan
+********************
+avg_hd:nan
+DSC:nan
+HD:nan

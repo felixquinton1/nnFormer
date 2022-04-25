@@ -467,13 +467,12 @@ class NetworkTrainer(object):
             # train one epoch
             self.network.train()
 
-            if self.use_progress_bar:
+            if self.use_progress_bar or True:
                 with trange(self.num_batches_per_epoch) as tbar:
                     for b in tbar:
                         tbar.set_description("Epoch {}/{}".format(self.epoch+1, self.max_num_epochs))
 
                         l = self.run_iteration(self.tr_gen, True)
-
                         tbar.set_postfix(loss=l)
                         train_losses_epoch.append(l)
             else:

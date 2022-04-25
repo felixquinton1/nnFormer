@@ -7,7 +7,7 @@ import numpy as np
 from nnformer.network_architecture.initialization import InitWeights_He
 from nnformer.network_architecture.neural_network import SegmentationNetwork
 import torch.nn.functional
-
+import ipdb
 
 import torch.nn.functional as F
 import torch.utils.checkpoint as checkpoint
@@ -340,7 +340,6 @@ class SwinTransformerBlock(nn.Module):
         
         B, L, C = x.shape
         S, H, W = self.input_resolution
-        
         assert L == S * H * W, "input feature has wrong size"
         
         shortcut = x
@@ -773,6 +772,7 @@ class Encoder(nn.Module):
         
       
         for i in range(self.num_layers):
+            # ipdb.set_trace()
             layer = self.layers[i]
             x_out, S, H, W, x, Ws, Wh, Ww = layer(x, Ws, Wh, Ww)
             if i in self.out_indices:
