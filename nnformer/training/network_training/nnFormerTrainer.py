@@ -324,6 +324,8 @@ class nnFormerTrainer(NetworkTrainer):
         :return:
         """
         self.plans = load_pickle(self.plans_file)
+        self.plans['plans_per_stage'][0]['batch_size'] = 1
+        self.plans['plans_per_stage'][0]['patch_size'] = np.array([14, 16,16])
 
     def process_plans(self, plans):
         if self.stage is None:

@@ -907,6 +907,7 @@ class nnFormer(SegmentationNetwork):
         patch_size=patch_size
         window_size=window_size
         down_stride=down_stride
+        crop_size= [14,64,64]
         self.model_down=Encoder(pretrain_img_size=crop_size,window_size=window_size,embed_dim=embed_dim,patch_size=patch_size,depths=depths,num_heads=num_heads,in_chans=input_channels,down_stride=down_stride)
         self.decoder=Decoder(pretrain_img_size=crop_size,embed_dim=embed_dim,window_size=window_size[::-1][1:],patch_size=patch_size,num_heads=num_heads[::-1][1:],depths=depths[::-1][1:],up_stride=down_stride[::-1][1:])
         

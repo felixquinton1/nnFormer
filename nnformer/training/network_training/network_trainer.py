@@ -657,6 +657,7 @@ class NetworkTrainer(object):
         target = data_dict['target']
 
         data = maybe_to_torch(data)
+        print("data shaaaaaaaaaaaaaaaaape: " + str(data.shape))
         target = maybe_to_torch(target)
 
         if torch.cuda.is_available():

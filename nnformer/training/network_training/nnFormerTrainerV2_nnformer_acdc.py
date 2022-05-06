@@ -161,9 +161,9 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
         Known issue: forgot to set neg_slope=0 in InitWeights_He; should not make a difference though
         :return:
         """
-  
-      
-        
+
+
+
         self.network=nnFormer(crop_size=self.crop_size,
                                 embedding_dim=self.embedding_dim,
                                 input_channels=self.input_channels,
@@ -277,7 +277,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
             target = to_cuda(target)
 
         self.optimizer.zero_grad()
-
+        print("data:" + str(data.shape))
         if self.fp16:
             with autocast():
                 output = self.network(data)
@@ -346,80 +346,28 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
 
             self.print_to_log_file("Desired fold for training: %d" % self.fold)
             splits[self.fold]['train'] = np.array(['im_001', 'im_002', 'im_003',
-                                                   'im_004', 'im_005', 'im_016',
-                                                   'im_007', 'im_008', 'im_009',
-                                                   'im_010', 'im_011', 'im_012',
-                                                   'im_013', 'im_014', 'im_015',
-                                                   'im_016', 'im_017', 'im_018',
-                                                   'im_019', 'im_020', 'im_021',
-                                                   'im_022', 'im_023', 'im_024',
-                                                   'im_025', 'im_026', 'im_027',
-                                                   'im_028', 'im_029', 'im_030',
-                                                   'im_031', 'im_032', 'im_033',
-                                                   'im_034', 'im_035', 'im_036',
-                                                   'im_037', 'im_038', 'im_039',
-                                                   'im_040'
+                                                   'im_004'
+                                                   #    , 'im_005', 'im_016',
+                                                   # 'im_007', 'im_008', 'im_009',
+                                                   # 'im_010', 'im_011', 'im_012',
+                                                   # 'im_013', 'im_014', 'im_015',
+                                                   # 'im_016', 'im_017', 'im_018',
+                                                   # 'im_019', 'im_020', 'im_021',
+                                                   # 'im_022', 'im_023', 'im_024',
+                                                   # 'im_025', 'im_026', 'im_027',
+                                                   # 'im_028', 'im_029', 'im_030',
+                                                   # 'im_031', 'im_032', 'im_033',
+                                                   # 'im_034', 'im_035', 'im_036',
+                                                   # 'im_037', 'im_038', 'im_039',
+                                                   # 'im_040'
                                                    ])
             splits[self.fold]['val'] = np.array(['im_041', 'im_042',
-                                                 'im_043', 'im_044', 'im_045',
-                                                 'im_046', 'im_047', 'im_048',
-                                                 'im_049', 'im_050', 'im_051',
-                                                 'im_052', 'im_053', 'im_054',
-                                                 'im_055'])
-       #      splits[self.fold]['train']=np.array(['patient001_frame01', 'patient001_frame12', 'patient004_frame01',
-       # 'patient004_frame15', 'patient005_frame01', 'patient005_frame13',
-       # 'patient006_frame01', 'patient006_frame16', 'patient007_frame01',
-       # 'patient007_frame07', 'patient010_frame01', 'patient010_frame13',
-       # 'patient011_frame01', 'patient011_frame08', 'patient013_frame01',
-       # 'patient013_frame14', 'patient015_frame01', 'patient015_frame10',
-       # 'patient016_frame01', 'patient016_frame12', 'patient018_frame01',
-       # 'patient018_frame10', 'patient019_frame01', 'patient019_frame11',
-       # 'patient020_frame01', 'patient020_frame11', 'patient021_frame01',
-       # 'patient021_frame13', 'patient022_frame01', 'patient022_frame11',
-       # 'patient023_frame01', 'patient023_frame09', 'patient025_frame01',
-       # 'patient025_frame09', 'patient026_frame01', 'patient026_frame12',
-       # 'patient027_frame01', 'patient027_frame11', 'patient028_frame01',
-       # 'patient028_frame09', 'patient029_frame01', 'patient029_frame12',
-       # 'patient030_frame01', 'patient030_frame12', 'patient031_frame01',
-       # 'patient031_frame10', 'patient032_frame01', 'patient032_frame12',
-       # 'patient033_frame01', 'patient033_frame14', 'patient034_frame01',
-       # 'patient034_frame16', 'patient035_frame01', 'patient035_frame11',
-       # 'patient036_frame01', 'patient036_frame12', 'patient037_frame01',
-       # 'patient037_frame12', 'patient038_frame01', 'patient038_frame11',
-       # 'patient039_frame01', 'patient039_frame10', 'patient040_frame01',
-       # 'patient040_frame13', 'patient041_frame01', 'patient041_frame11',
-       # 'patient043_frame01', 'patient043_frame07', 'patient044_frame01',
-       # 'patient044_frame11', 'patient045_frame01', 'patient045_frame13',
-       # 'patient046_frame01', 'patient046_frame10', 'patient047_frame01',
-       # 'patient047_frame09', 'patient050_frame01', 'patient050_frame12',
-       # 'patient051_frame01', 'patient051_frame11', 'patient052_frame01',
-       # 'patient052_frame09', 'patient054_frame01', 'patient054_frame12',
-       # 'patient056_frame01', 'patient056_frame12', 'patient057_frame01',
-       # 'patient057_frame09', 'patient058_frame01', 'patient058_frame14',
-       # 'patient059_frame01', 'patient059_frame09', 'patient060_frame01',
-       # 'patient060_frame14', 'patient061_frame01', 'patient061_frame10',
-       # 'patient062_frame01', 'patient062_frame09', 'patient063_frame01',
-       # 'patient063_frame16', 'patient065_frame01', 'patient065_frame14',
-       # 'patient066_frame01', 'patient066_frame11', 'patient068_frame01',
-       # 'patient068_frame12', 'patient069_frame01', 'patient069_frame12',
-       # 'patient070_frame01', 'patient070_frame10', 'patient071_frame01',
-       # 'patient071_frame09', 'patient072_frame01', 'patient072_frame11',
-       # 'patient073_frame01', 'patient073_frame10', 'patient074_frame01',
-       # 'patient074_frame12', 'patient075_frame01', 'patient075_frame06',
-       # 'patient076_frame01', 'patient076_frame12', 'patient077_frame01',
-       # 'patient077_frame09', 'patient078_frame01', 'patient078_frame09',
-       # 'patient080_frame01', 'patient080_frame10', 'patient082_frame01',
-       # 'patient082_frame07', 'patient083_frame01', 'patient083_frame08',
-       # 'patient084_frame01', 'patient084_frame10', 'patient085_frame01',
-       # 'patient085_frame09', 'patient086_frame01', 'patient086_frame08',
-       # 'patient087_frame01', 'patient087_frame10'])
-       #      splits[self.fold]['val']=np.array(['patient089_frame01', 'patient089_frame10', 'patient090_frame04',
-       # 'patient090_frame11', 'patient091_frame01', 'patient091_frame09',
-       # 'patient093_frame01', 'patient093_frame14', 'patient094_frame01',
-       # 'patient094_frame07', 'patient096_frame01', 'patient096_frame08',
-       # 'patient097_frame01', 'patient097_frame11', 'patient098_frame01',
-       # 'patient098_frame09', 'patient099_frame01', 'patient099_frame09',
-       # 'patient100_frame01', 'patient100_frame13'])
+                                                 'im_043', 'im_044', 'im_045'
+                                                 # , 'im_046', 'im_047', 'im_048',
+                                                 # 'im_049', 'im_050', 'im_051',
+                                                 # 'im_052', 'im_053', 'im_054',
+                                                 # 'im_055'
+                                                 ])
             if self.fold < len(splits):
                 tr_keys = splits[self.fold]['train']
                 val_keys = splits[self.fold]['val']
@@ -450,7 +398,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
 
     def setup_DA_params(self):
         """
-        - we increase roation angle from [-15, 15] to [-30, 30]
+        - we increase rotation angle from [-15, 15] to [-30, 30]
         - scale range is now (0.7, 1.4), was (0.85, 1.25)
         - we don't do elastic deformation anymore
 
