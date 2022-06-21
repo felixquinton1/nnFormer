@@ -27,6 +27,7 @@ from nnformer.training.network_training.nnFormerTrainerV2_CascadeFullRes import 
 from nnformer.utilities.task_name_id_conversion import convert_id_to_task_name
 import numpy as np
 import torch
+import wandb
 import ipdb;
 
 
@@ -109,108 +110,108 @@ def main():
                              'Optional. Beta. Use with caution.')
 
     args = parser.parse_args()
+    with wandb.init(project="delineate-seg-sota", name='vanilla_nnformer_test', config=args):
+        task = args.task
+        fold = args.fold
+        network = args.network
+        network_trainer = args.network_trainer
+        validation_only = args.validation_only
+        plans_identifier = args.p
+        find_lr = args.find_lr
+        disable_postprocessing_on_folds = args.disable_postprocessing_on_folds
 
-    task = args.task
-    fold = args.fold
-    network = args.network
-    network_trainer = args.network_trainer
-    validation_only = args.validation_only
-    plans_identifier = args.p
-    find_lr = args.find_lr
-    disable_postprocessing_on_folds = args.disable_postprocessing_on_folds
+        use_compressed_data = args.use_compressed_data
+        decompress_data = not use_compressed_data
 
-    use_compressed_data = args.use_compressed_data
-    decompress_data = not use_compressed_data
+        deterministic = args.deterministic
+        valbest = args.valbest
 
-    deterministic = args.deterministic
-    valbest = args.valbest
+        fp32 = args.fp32
+        run_mixed_precision = not fp32
 
-    fp32 = args.fp32
-    run_mixed_precision = not fp32
+        val_folder = args.val_folder
+        # interp_order = args.interp_order
+        # interp_order_z = args.interp_order_z
+        # force_separate_z = args.force_separate_z
 
-    val_folder = args.val_folder
-    # interp_order = args.interp_order
-    # interp_order_z = args.interp_order_z
-    # force_separate_z = args.force_separate_z
+        if not task.startswith("Task"):
+            task_id = int(task)
+            task = convert_id_to_task_name(task_id)
 
-    if not task.startswith("Task"):
-        task_id = int(task)
-        task = convert_id_to_task_name(task_id)
-
-    if fold == 'all':
-        pass
-    else:
-        fold = int(fold)
-
-    # if force_separate_z == "None":
-    #     force_separate_z = None
-    # elif force_separate_z == "False":
-    #     force_separate_z = False
-    # elif force_separate_z == "True":
-    #     force_separate_z = True
-    # else:
-    #     raise ValueError("force_separate_z must be None, True or False. Given: %s" % force_separate_z)
-
-    plans_file, output_folder_name, dataset_directory, batch_dice, stage, \
-    trainer_class = get_default_configuration(network, task, network_trainer, plans_identifier)
-
-    if trainer_class is None:
-        raise RuntimeError("Could not find trainer class in nnformer.training.network_training")
-
-    if network == "3d_cascade_fullres":
-        assert issubclass(trainer_class, (nnFormerTrainerCascadeFullRes, nnFormerTrainerV2CascadeFullRes)), \
-            "If running 3d_cascade_fullres then your " \
-            "trainer class must be derived from " \
-            "nnFormerTrainerCascadeFullRes"
-    else:
-        assert issubclass(trainer_class,
-                          nnFormerTrainer) or issubclass(trainer_class, nnFormerTrainer_synapse) , "network_trainer was found but is not derived from nnFormerTrainer"
-
-    trainer = trainer_class(plans_file, fold, output_folder=output_folder_name, dataset_directory=dataset_directory,
-                            batch_dice=batch_dice, stage=stage, unpack_data=decompress_data,
-                            deterministic=deterministic
-                            ,fp16=run_mixed_precision)
-    if args.disable_saving:
-        trainer.save_final_checkpoint = False # whether or not to save the final checkpoint
-        trainer.save_best_checkpoint = False  # whether or not to save the best checkpoint according to
-        # self.best_val_eval_criterion_MA
-        trainer.save_intermediate_checkpoints = True  # whether or not to save checkpoint_latest. We need that in case
-        # the training chashes
-        trainer.save_latest_only = True  # if false it will not store/overwrite _latest but separate files each
-
-    trainer.initialize(not validation_only)
-
-    if find_lr:
-        trainer.find_lr()
-    else:
-        if not validation_only:
-            if args.continue_training:
-                # -c was set, continue a previous training and ignore pretrained weights
-                trainer.load_latest_checkpoint()
-            elif (not args.continue_training) and (args.pretrained_weights is not None):
-                # we start a new training. If pretrained_weights are set, use them
-                load_pretrained_weights(trainer.network, args.pretrained_weights)
-            else:
-                # new training without pretraine weights, do nothing
-                pass
-
-            trainer.run_training()
+        if fold == 'all':
+            pass
         else:
-            if valbest:
-                trainer.load_best_checkpoint(train=False)
+            fold = int(fold)
+
+        # if force_separate_z == "None":
+        #     force_separate_z = None
+        # elif force_separate_z == "False":
+        #     force_separate_z = False
+        # elif force_separate_z == "True":
+        #     force_separate_z = True
+        # else:
+        #     raise ValueError("force_separate_z must be None, True or False. Given: %s" % force_separate_z)
+
+        plans_file, output_folder_name, dataset_directory, batch_dice, stage, \
+        trainer_class = get_default_configuration(network, task, network_trainer, plans_identifier)
+
+        if trainer_class is None:
+            raise RuntimeError("Could not find trainer class in nnformer.training.network_training")
+
+        if network == "3d_cascade_fullres":
+            assert issubclass(trainer_class, (nnFormerTrainerCascadeFullRes, nnFormerTrainerV2CascadeFullRes)), \
+                "If running 3d_cascade_fullres then your " \
+                "trainer class must be derived from " \
+                "nnFormerTrainerCascadeFullRes"
+        else:
+            assert issubclass(trainer_class,
+                              nnFormerTrainer) or issubclass(trainer_class, nnFormerTrainer_synapse) , "network_trainer was found but is not derived from nnFormerTrainer"
+
+        trainer = trainer_class(plans_file, fold, output_folder=output_folder_name, dataset_directory=dataset_directory,
+                                batch_dice=batch_dice, stage=stage, unpack_data=decompress_data,
+                                deterministic=deterministic
+                                ,fp16=run_mixed_precision)
+        if args.disable_saving:
+            trainer.save_final_checkpoint = False # whether or not to save the final checkpoint
+            trainer.save_best_checkpoint = False  # whether or not to save the best checkpoint according to
+            # self.best_val_eval_criterion_MA
+            trainer.save_intermediate_checkpoints = True  # whether or not to save checkpoint_latest. We need that in case
+            # the training chashes
+            trainer.save_latest_only = True  # if false it will not store/overwrite _latest but separate files each
+
+        trainer.initialize(not validation_only)
+
+        if find_lr:
+            trainer.find_lr()
+        else:
+            if not validation_only:
+                if args.continue_training:
+                    # -c was set, continue a previous training and ignore pretrained weights
+                    trainer.load_latest_checkpoint()
+                elif (not args.continue_training) and (args.pretrained_weights is not None):
+                    # we start a new training. If pretrained_weights are set, use them
+                    load_pretrained_weights(trainer.network, args.pretrained_weights)
+                else:
+                    # new training without pretraine weights, do nothing
+                    pass
+
+                trainer.run_training()
             else:
-                trainer.load_final_checkpoint(train=False)
+                if valbest:
+                    trainer.load_best_checkpoint(train=False)
+                else:
+                    trainer.load_final_checkpoint(train=False)
 
-        #trainer.network.eval()
+            #trainer.network.eval()
 
-        # predict validation
-        #trainer.validate(save_softmax=args.npz, validation_folder_name=val_folder,
-        #                 run_postprocessing_on_folds=not disable_postprocessing_on_folds,
-        #                 overwrite=args.val_disable_overwrite)
+            # predict validation
+            #trainer.validate(save_softmax=args.npz, validation_folder_name=val_folder,
+            #                 run_postprocessing_on_folds=not disable_postprocessing_on_folds,
+            #                 overwrite=args.val_disable_overwrite)
 
-        if network == '3d_lowres' and not args.disable_next_stage_pred:
-            print("predicting segmentations for the next stage of the cascade")
-            predict_next_stage(trainer, join(dataset_directory, trainer.plans['data_identifier'] + "_stage%d" % 1))
+            if network == '3d_lowres' and not args.disable_next_stage_pred:
+                print("predicting segmentations for the next stage of the cascade")
+                predict_next_stage(trainer, join(dataset_directory, trainer.plans['data_identifier'] + "_stage%d" % 1))
 
 
 if __name__ == "__main__":

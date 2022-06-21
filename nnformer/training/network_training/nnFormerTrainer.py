@@ -14,6 +14,7 @@
 
 
 import shutil
+import wandb
 from collections import OrderedDict
 from multiprocessing import Pool
 from time import sleep
@@ -324,8 +325,8 @@ class nnFormerTrainer(NetworkTrainer):
         :return:
         """
         self.plans = load_pickle(self.plans_file)
-        self.plans['plans_per_stage'][0]['batch_size'] = 1
-        self.plans['plans_per_stage'][0]['patch_size'] = np.array([14, 16,16])
+        # self.plans['plans_per_stage'][0]['batch_size'] = 1
+        # self.plans['plans_per_stage'][0]['patch_size'] = np.array([14, 16,16])
 
     def process_plans(self, plans):
         if self.stage is None:
@@ -717,7 +718,8 @@ class nnFormerTrainer(NetworkTrainer):
                                            zip(self.online_eval_tp, self.online_eval_fp, self.online_eval_fn)]
                                if not np.isnan(i)]
         self.all_val_eval_metrics.append(np.mean(global_dc_per_class))
-
+        wandb.log({'val_acc': np.mean(global_dc_per_class), 'liver_acc': global_dc_per_class[0],
+                   'tumor_acc': global_dc_per_class[1], 'epoch': self.epoch})
         self.print_to_log_file("Average global foreground Dice:", str(global_dc_per_class))
         self.print_to_log_file("(interpret this as an estimate for the Dice of the different classes. This is not "
                                "exact.)")

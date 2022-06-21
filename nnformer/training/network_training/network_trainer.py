@@ -23,6 +23,7 @@ from sklearn.model_selection import KFold
 from torch import nn
 from torch.cuda.amp import GradScaler, autocast
 from torch.optim.lr_scheduler import _LRScheduler
+import wandb
 
 matplotlib.use("agg")
 from time import time, sleep
@@ -481,6 +482,8 @@ class NetworkTrainer(object):
                     train_losses_epoch.append(l)
 
             self.all_tr_losses.append(np.mean(train_losses_epoch))
+            wandb.log({'train loss': np.mean(train_losses_epoch), 'epoch': self.epoch})
+
             self.print_to_log_file("train loss : %.4f" % self.all_tr_losses[-1])
 
             with torch.no_grad():
@@ -491,6 +494,7 @@ class NetworkTrainer(object):
                     l = self.run_iteration(self.val_gen, False, True)
                     val_losses.append(l)
                 self.all_val_losses.append(np.mean(val_losses))
+                wandb.log({'val_loss': np.mean(train_losses_epoch), 'epoch': self.epoch})
                 self.print_to_log_file("validation loss: %.4f" % self.all_val_losses[-1])
 
                 if self.also_val_in_tr_mode:

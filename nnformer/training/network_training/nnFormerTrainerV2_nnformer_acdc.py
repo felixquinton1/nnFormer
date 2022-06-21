@@ -71,7 +71,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
         self.embedding_patch_size=[1,4,4]
         self.window_size=[[3,5,5],[3,5,5],[7,10,10],[3,5,5]]
         self.down_stride=[[1,4,4],[1,8,8],[2,16,16],[4,32,32]]
-        self.deep_supervision=False
+        self.deep_supervision=True
     def initialize(self, training=True, force_load_plans=False):
         """
         - replaced get_default_augmentation with get_moreDA_augmentation
@@ -268,7 +268,6 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
         data_dict = next(data_generator)
         data = data_dict['data']
         target = data_dict['target']
-
         data = maybe_to_torch(data)
         target = maybe_to_torch(target)
 
@@ -277,12 +276,10 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
             target = to_cuda(target)
 
         self.optimizer.zero_grad()
-        print("data:" + str(data.shape))
         if self.fp16:
             with autocast():
                 output = self.network(data)
                 del data
-                
                 l = self.loss(output, target)
 
             if do_backprop:
@@ -346,27 +343,25 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
 
             self.print_to_log_file("Desired fold for training: %d" % self.fold)
             splits[self.fold]['train'] = np.array(['im_001', 'im_002', 'im_003',
-                                                   'im_004'
-                                                   #    , 'im_005', 'im_016',
-                                                   # 'im_007', 'im_008', 'im_009',
-                                                   # 'im_010', 'im_011', 'im_012',
-                                                   # 'im_013', 'im_014', 'im_015',
-                                                   # 'im_016', 'im_017', 'im_018',
-                                                   # 'im_019', 'im_020', 'im_021',
-                                                   # 'im_022', 'im_023', 'im_024',
-                                                   # 'im_025', 'im_026', 'im_027',
-                                                   # 'im_028', 'im_029', 'im_030',
-                                                   # 'im_031', 'im_032', 'im_033',
-                                                   # 'im_034', 'im_035', 'im_036',
-                                                   # 'im_037', 'im_038', 'im_039',
-                                                   # 'im_040'
+                                                   'im_004', 'im_005', 'im_016',
+                                                   'im_007', 'im_008', 'im_009',
+                                                   'im_010', 'im_011', 'im_012',
+                                                   'im_013', 'im_014', 'im_015',
+                                                   'im_016', 'im_017', 'im_018',
+                                                   'im_019', 'im_020', 'im_021',
+                                                   'im_022', 'im_023', 'im_024',
+                                                   'im_025', 'im_026', 'im_027',
+                                                   'im_028', 'im_029', 'im_030',
+                                                   'im_031', 'im_032', 'im_033',
+                                                   'im_034', 'im_035', 'im_036',
+                                                   'im_037', 'im_038', 'im_039',
+                                                   'im_040'
                                                    ])
-            splits[self.fold]['val'] = np.array(['im_041', 'im_042',
-                                                 'im_043', 'im_044', 'im_045'
-                                                 # , 'im_046', 'im_047', 'im_048',
-                                                 # 'im_049', 'im_050', 'im_051',
-                                                 # 'im_052', 'im_053', 'im_054',
-                                                 # 'im_055'
+            splits[self.fold]['val'] = np.array(['im_041', 'im_042','im_043',
+                                                 'im_044', 'im_045', 'im_046',
+                                                 'im_047', 'im_048', 'im_049',
+                                                 'im_050', 'im_051', 'im_052',
+                                                 'im_053', 'im_054', 'im_055'
                                                  ])
             if self.fold < len(splits):
                 tr_keys = splits[self.fold]['train']
@@ -407,7 +402,6 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
 
         self.deep_supervision_scales = [[1, 1, 1]] + list(list(i) for i in 1 / np.cumprod(
             np.vstack(self.net_num_pool_op_kernel_sizes), axis=0))[:-1]
-
         if self.threeD:
             self.data_aug_params = default_3D_augmentation_params
             self.data_aug_params['rotation_x'] = (-30. / 360 * 2. * np.pi, 30. / 360 * 2. * np.pi)
@@ -502,6 +496,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
             self.network.do_ds = True
         else:
             self.network.do_ds = False
+
         ret = super().run_training()
         self.network.do_ds = ds
         return ret
