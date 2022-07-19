@@ -24,6 +24,8 @@ import matplotlib
 import nnformer
 import numpy as np
 import torch
+from monai.metrics import DiceMetric
+from monai.utils.enums import MetricReduction
 from batchgenerators.utilities.file_and_folder_operations import *
 from nnformer.configuration import default_num_threads
 from nnformer.evaluation.evaluator import aggregate_scores
@@ -113,6 +115,9 @@ class nnFormerTrainer(NetworkTrainer):
         self.online_eval_fp = []
         self.online_eval_fn = []
 
+        self.per_struc_list = [[], []]
+        self.dice_per_struct = np.zeros(2, float)
+
         self.classes = self.do_dummy_2D_aug = self.use_mask_for_norm = self.only_keep_largest_connected_component = \
             self.min_region_size_per_class = self.min_size_per_class = None
 
@@ -176,6 +181,8 @@ class nnFormerTrainer(NetworkTrainer):
                                                              self.data_aug_params['rotation_z'],
                                                              self.data_aug_params['scale_range'])
             self.basic_generator_patch_size = np.array([self.patch_size[0]] + list(self.basic_generator_patch_size))
+            print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
+            print(self.basic_generator_patch_size)
             patch_size_for_spatialtransform = self.patch_size[1:]
         else:
             self.basic_generator_patch_size = get_patch_size(self.patch_size, self.data_aug_params['rotation_x'],
@@ -183,7 +190,8 @@ class nnFormerTrainer(NetworkTrainer):
                                                              self.data_aug_params['rotation_z'],
                                                              self.data_aug_params['scale_range'])
             patch_size_for_spatialtransform = self.patch_size
-
+        print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
+        print(self.basic_generator_patch_size)
         self.data_aug_params['selected_seg_channels'] = [0]
         self.data_aug_params['patch_size_for_spatialtransform'] = patch_size_for_spatialtransform
 
@@ -203,7 +211,8 @@ class nnFormerTrainer(NetworkTrainer):
         self.process_plans(self.plans)
 
         self.setup_DA_params()
-
+        print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
+        print(self.basic_generator_patch_size)
         if training:
             self.folder_with_preprocessed_data = join(self.dataset_directory, self.plans['data_identifier'] +
                                                       "_stage%d" % self.stage)
@@ -686,30 +695,61 @@ class nnFormerTrainer(NetworkTrainer):
         self.network.train(current_mode)
 
     def run_online_evaluation(self, output, target):
+        dice_acc = DiceMetric(include_background=False,
+                              reduction=MetricReduction.MEAN,
+                              get_not_nans=True)
         with torch.no_grad():
             num_classes = output.shape[1]
             output_softmax = softmax_helper(output)
             output_seg = output_softmax.argmax(1)
+            bg = target == 0
+            liver = target == 1
+            tumor = target == 2
+            test = torch.cat((bg, liver, tumor), 1)
+
+            output_seg_2 = output_seg[None, :]
+            bg = output_seg_2 == 0
+            liver = output_seg_2 == 1
+            tumor = output_seg_2 == 2
+            test2 = torch.cat((bg, liver, tumor), 0)
+            # test2 = test2[None,:]
+            test2 = torch.swapaxes(test2, 0, 1)
+
+
             target = target[:, 0]
             axes = tuple(range(1, len(target.shape)))
             tp_hard = torch.zeros((target.shape[0], num_classes - 1)).to(output_seg.device.index)
             fp_hard = torch.zeros((target.shape[0], num_classes - 1)).to(output_seg.device.index)
             fn_hard = torch.zeros((target.shape[0], num_classes - 1)).to(output_seg.device.index)
+
             for c in range(1, num_classes):
                 tp_hard[:, c - 1] = sum_tensor((output_seg == c).float() * (target == c).float(), axes=axes)
                 fp_hard[:, c - 1] = sum_tensor((output_seg == c).float() * (target != c).float(), axes=axes)
                 fn_hard[:, c - 1] = sum_tensor((output_seg != c).float() * (target == c).float(), axes=axes)
 
+            acc = dice_acc(test2, test)
+            acc_list = acc.detach().cpu().numpy()
+            for img in acc_list:
+                for i, struc in enumerate(self.per_struc_list):
+                    struc.append(img[i])
+
             tp_hard = tp_hard.sum(0, keepdim=False).detach().cpu().numpy()
             fp_hard = fp_hard.sum(0, keepdim=False).detach().cpu().numpy()
             fn_hard = fn_hard.sum(0, keepdim=False).detach().cpu().numpy()
-
             self.online_eval_foreground_dc.append(list((2 * tp_hard) / (2 * tp_hard + fp_hard + fn_hard + 1e-8)))
             self.online_eval_tp.append(list(tp_hard))
             self.online_eval_fp.append(list(fp_hard))
             self.online_eval_fn.append(list(fn_hard))
 
     def finish_online_evaluation(self):
+
+        for idx, struc in enumerate(self.per_struc_list):
+            self.dice_per_struct[idx] = np.nanmean(struc)
+        avg_acc = np.nanmean(self.dice_per_struct)
+        wandb.log({'val_acc': avg_acc, 'liver_acc': self.dice_per_struct[0],
+                   'tumor_acc': self.dice_per_struct[1], 'epoch': self.epoch + 1})
+
+
         self.online_eval_tp = np.sum(self.online_eval_tp, 0)
         self.online_eval_fp = np.sum(self.online_eval_fp, 0)
         self.online_eval_fn = np.sum(self.online_eval_fn, 0)
@@ -718,8 +758,10 @@ class nnFormerTrainer(NetworkTrainer):
                                            zip(self.online_eval_tp, self.online_eval_fp, self.online_eval_fn)]
                                if not np.isnan(i)]
         self.all_val_eval_metrics.append(np.mean(global_dc_per_class))
-        wandb.log({'val_acc': np.mean(global_dc_per_class), 'liver_acc': global_dc_per_class[0],
-                   'tumor_acc': global_dc_per_class[1], 'epoch': self.epoch})
+        wandb.log({'val_acc_vanilla': np.mean(global_dc_per_class), 'liver_acc_vanilla': global_dc_per_class[0],
+                   'tumor_acc_vanilla': global_dc_per_class[1], 'epoch': self.epoch + 1})
+
+
         self.print_to_log_file("Average global foreground Dice:", str(global_dc_per_class))
         self.print_to_log_file("(interpret this as an estimate for the Dice of the different classes. This is not "
                                "exact.)")
@@ -728,7 +770,8 @@ class nnFormerTrainer(NetworkTrainer):
         self.online_eval_tp = []
         self.online_eval_fp = []
         self.online_eval_fn = []
-
+        self.per_struc_list = [[], []]
+        self.dice_per_struct = np.zeros(2, float)
     def save_checkpoint(self, fname, save_optimizer=True):
         super(nnFormerTrainer, self).save_checkpoint(fname, save_optimizer)
         info = OrderedDict()

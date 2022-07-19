@@ -1,0 +1,50 @@
+2022-07-12 14:28:52,374 INFO    MainThread:29451 [internal.py:wandb_internal():93] W&B internal server running at pid: 29451, started at: 2022-07-12 14:28:52.374468
+2022-07-12 14:28:52,377 INFO    WriterThread:29451 [datastore.py:open_for_write():75] open: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/run-yj5za1q9.wandb
+2022-07-12 14:28:52,379 DEBUG   SenderThread:29451 [sender.py:send():235] send: header
+2022-07-12 14:28:52,379 DEBUG   SenderThread:29451 [sender.py:send():235] send: run
+2022-07-12 14:28:52,644 INFO    SenderThread:29451 [dir_watcher.py:__init__():205] watching files in: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files
+2022-07-12 14:28:52,644 INFO    SenderThread:29451 [sender.py:_start_run_threads():815] run started: yj5za1q9 with start time 1657628931
+2022-07-12 14:28:52,653 DEBUG   SenderThread:29451 [sender.py:send():235] send: summary
+2022-07-12 14:28:52,653 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: check_version
+2022-07-12 14:28:52,653 INFO    SenderThread:29451 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-12 14:28:52,653 DEBUG   SenderThread:29451 [sender.py:send_request():249] send_request: check_version
+2022-07-12 14:28:52,733 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: run_start
+2022-07-12 14:28:52,746 DEBUG   HandlerThread:29451 [meta.py:__init__():35] meta init
+2022-07-12 14:28:52,747 DEBUG   HandlerThread:29451 [meta.py:__init__():49] meta init done
+2022-07-12 14:28:52,747 DEBUG   HandlerThread:29451 [meta.py:probe():209] probe
+2022-07-12 14:28:52,755 DEBUG   HandlerThread:29451 [meta.py:_setup_git():199] setup git
+2022-07-12 14:28:52,769 DEBUG   HandlerThread:29451 [meta.py:_setup_git():206] setup git done
+2022-07-12 14:28:52,769 DEBUG   HandlerThread:29451 [meta.py:_save_pip():53] save pip
+2022-07-12 14:28:52,769 DEBUG   HandlerThread:29451 [meta.py:_save_pip():67] save pip done
+2022-07-12 14:28:52,769 DEBUG   HandlerThread:29451 [meta.py:_save_conda():74] save conda
+2022-07-12 14:28:53,646 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/requirements.txt
+2022-07-12 14:28:53,646 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/conda-environment.yaml
+2022-07-12 14:28:53,647 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/wandb-summary.json
+2022-07-12 14:28:54,211 DEBUG   HandlerThread:29451 [meta.py:_save_conda():84] save conda done
+2022-07-12 14:28:54,211 DEBUG   HandlerThread:29451 [meta.py:probe():247] probe done
+2022-07-12 14:28:54,215 DEBUG   SenderThread:29451 [sender.py:send():235] send: files
+2022-07-12 14:28:54,215 INFO    SenderThread:29451 [sender.py:_save_file():949] saving file wandb-metadata.json with policy now
+2022-07-12 14:28:54,223 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-12 14:28:54,223 DEBUG   SenderThread:29451 [sender.py:send_request():249] send_request: stop_status
+2022-07-12 14:28:54,386 DEBUG   SenderThread:29451 [sender.py:send():235] send: telemetry
+2022-07-12 14:28:54,644 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/conda-environment.yaml
+2022-07-12 14:28:54,644 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/wandb-metadata.json
+2022-07-12 14:28:54,644 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/output.log
+2022-07-12 14:28:54,912 INFO    Thread-16 :29451 [upload_job.py:push():132] Uploaded file /tmp/tmp9vmahjr0wandb/1w4addun-wandb-metadata.json
+2022-07-12 14:28:56,645 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/output.log
+2022-07-12 14:29:00,648 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/output.log
+2022-07-12 14:29:09,413 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-12 14:29:09,414 DEBUG   SenderThread:29451 [sender.py:send_request():249] send_request: stop_status
+2022-07-12 14:29:21,121 DEBUG   SenderThread:29451 [sender.py:send():235] send: stats
+2022-07-12 14:29:23,667 INFO    Thread-12 :29451 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220712_142851-yj5za1q9/files/config.yaml
+2022-07-12 14:29:24,608 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-12 14:29:24,609 DEBUG   SenderThread:29451 [sender.py:send_request():249] send_request: stop_status
+2022-07-12 14:29:39,797 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-12 14:29:39,797 DEBUG   SenderThread:29451 [sender.py:send_request():249] send_request: stop_status
+2022-07-12 14:29:51,628 DEBUG   SenderThread:29451 [sender.py:send():235] send: stats
+2022-07-12 14:29:54,965 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-12 14:29:54,966 DEBUG   SenderThread:29451 [sender.py:send_request():249] send_request: stop_status
+2022-07-12 14:30:10,154 DEBUG   HandlerThread:29451 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-12 14:30:10,155 DEBUG   SenderThread:29451 [sender.py:send_request():249] send_request: stop_status
+2022-07-12 14:30:22,048 DEBUG   SenderThread:29451 [sender.py:send():235] send: stats
+2022-07-12 14:30:24,639 WARNING MainThread:29451 [internal.py:wandb_internal():153] Internal process interrupt: 1

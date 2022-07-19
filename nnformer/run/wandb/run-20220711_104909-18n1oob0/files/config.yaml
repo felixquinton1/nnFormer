@@ -1,0 +1,87 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.18
+    framework: huggingface
+    huggingface_version: 4.8.2
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.6.13
+    start_time: 1657529349
+    t:
+      1:
+      - 1
+      - 5
+      - 11
+      - 41
+      - 48
+      - 49
+      - 53
+      - 55
+      3:
+      - 13
+      - 16
+      4: 3.6.13
+      5: 0.12.18
+      6: 4.8.2
+      8:
+      - 5
+continue_training:
+  desc: null
+  value: false
+deterministic:
+  desc: null
+  value: false
+disable_next_stage_pred:
+  desc: null
+  value: false
+disable_postprocessing_on_folds:
+  desc: null
+  value: false
+disable_saving:
+  desc: null
+  value: false
+find_lr:
+  desc: null
+  value: false
+fold:
+  desc: null
+  value: '0'
+fp32:
+  desc: null
+  value: false
+network:
+  desc: null
+  value: 3d_fullres
+network_trainer:
+  desc: null
+  value: nnFormerTrainerV2_nnformer_acdc
+npz:
+  desc: null
+  value: false
+p:
+  desc: null
+  value: nnFormerPlansv2.1
+pretrained_weights:
+  desc: null
+  value: null
+task:
+  desc: null
+  value: '001'
+use_compressed_data:
+  desc: null
+  value: false
+val_disable_overwrite:
+  desc: null
+  value: true
+val_folder:
+  desc: null
+  value: validation_raw
+valbest:
+  desc: null
+  value: false
+validation_only:
+  desc: null
+  value: false

@@ -92,6 +92,7 @@ class SwinTransformerBlock_kv(nn.Module):
         assert self.shift_size==[0,0,0]
         B, L, C = x.shape
         S, H, W = self.input_resolution
+
         assert L == S * H * W, "input feature has wrong size"
         
         shortcut = x
@@ -340,6 +341,7 @@ class SwinTransformerBlock(nn.Module):
         
         B, L, C = x.shape
         S, H, W = self.input_resolution
+
         assert L == S * H * W, "input feature has wrong size"
         
         shortcut = x
@@ -604,7 +606,7 @@ class BasicLayer_up(nn.Module):
         attn_mask=None
         x = self.blocks[0](x, attn_mask,skip=skip,x_up=x_up)
         for i in range(self.depth-1):
-            x = self.blocks[i+1](x,attn_mask)
+            x = self.blocks[i+1](x, attn_mask)
         
         return x, S, H, W
         
@@ -651,8 +653,8 @@ class PatchEmbed(nn.Module):
 
         self.in_chans = in_chans
         self.embed_dim = embed_dim
-        stride1=[1,patch_size[1]//2,patch_size[2]//2]
-        stride2=[1,patch_size[1]//2,patch_size[2]//2]
+        stride1=[1, patch_size[1]//2,patch_size[2]//2]
+        stride2=[1, patch_size[1]//2,patch_size[2]//2]
         self.proj1 = project(in_chans,embed_dim//2,stride1,1,nn.GELU,nn.LayerNorm,False)
         self.proj2 = project(embed_dim//2,embed_dim,stride2,1,nn.GELU,nn.LayerNorm,True)
         if norm_layer is not None:

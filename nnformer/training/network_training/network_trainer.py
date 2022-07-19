@@ -467,8 +467,7 @@ class NetworkTrainer(object):
 
             # train one epoch
             self.network.train()
-
-            if self.use_progress_bar or True:
+            if self.use_progress_bar:
                 with trange(self.num_batches_per_epoch) as tbar:
                     for b in tbar:
                         tbar.set_description("Epoch {}/{}".format(self.epoch+1, self.max_num_epochs))
@@ -477,10 +476,22 @@ class NetworkTrainer(object):
                         tbar.set_postfix(loss=l)
                         train_losses_epoch.append(l)
             else:
+                s_time = time()
+                timer = [0, 0, 0, 0]
                 for _ in range(self.num_batches_per_epoch):
-                    l = self.run_iteration(self.tr_gen, True)
+                    l, timer_batch = self.run_iteration(self.tr_gen, True)
+                    timer[0] += timer_batch[0]
+                    timer[1] += timer_batch[1]
+                    timer[2] += timer_batch[2]
+                    timer[3] += timer_batch[3]
                     train_losses_epoch.append(l)
-
+                f_time = time()
+                print('time {:.2f}s'.format(f_time - s_time),
+                      'load time {:.2f}s'.format(timer[0]),
+                      'time_before_calc {:.2f}s'.format(timer[1]),
+                      'calc time {:.2f}s'.format(timer[2]),
+                      'back time {:.2f}s'.format(timer[3]),
+                      )
             self.all_tr_losses.append(np.mean(train_losses_epoch))
             wandb.log({'train loss': np.mean(train_losses_epoch), 'epoch': self.epoch})
 
@@ -491,7 +502,7 @@ class NetworkTrainer(object):
                 self.network.eval()
                 val_losses = []
                 for b in range(self.num_val_batches_per_epoch):
-                    l = self.run_iteration(self.val_gen, False, True)
+                    l,  timer = self.run_iteration(self.val_gen, False, True)
                     val_losses.append(l)
                 self.all_val_losses.append(np.mean(val_losses))
                 wandb.log({'val_loss': np.mean(train_losses_epoch), 'epoch': self.epoch})
@@ -661,7 +672,6 @@ class NetworkTrainer(object):
         target = data_dict['target']
 
         data = maybe_to_torch(data)
-        print("data shaaaaaaaaaaaaaaaaape: " + str(data.shape))
         target = maybe_to_torch(target)
 
         if torch.cuda.is_available():

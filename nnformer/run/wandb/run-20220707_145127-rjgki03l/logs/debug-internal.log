@@ -1,0 +1,84 @@
+2022-07-07 14:51:27,950 INFO    MainThread:17543 [internal.py:wandb_internal():93] W&B internal server running at pid: 17543, started at: 2022-07-07 14:51:27.950078
+2022-07-07 14:51:27,951 INFO    WriterThread:17543 [datastore.py:open_for_write():75] open: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/run-rjgki03l.wandb
+2022-07-07 14:51:27,952 DEBUG   SenderThread:17543 [sender.py:send():235] send: header
+2022-07-07 14:51:27,952 DEBUG   SenderThread:17543 [sender.py:send():235] send: run
+2022-07-07 14:51:28,286 DEBUG   HandlerThread:17543 [handler.py:handle_request():141] handle_request: check_version
+2022-07-07 14:51:28,288 INFO    SenderThread:17543 [dir_watcher.py:__init__():205] watching files in: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files
+2022-07-07 14:51:28,288 INFO    SenderThread:17543 [sender.py:_start_run_threads():815] run started: rjgki03l with start time 1657198287
+2022-07-07 14:51:28,288 DEBUG   SenderThread:17543 [sender.py:send():235] send: summary
+2022-07-07 14:51:28,289 INFO    SenderThread:17543 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 14:51:28,289 DEBUG   SenderThread:17543 [sender.py:send_request():249] send_request: check_version
+2022-07-07 14:51:28,398 DEBUG   HandlerThread:17543 [handler.py:handle_request():141] handle_request: run_start
+2022-07-07 14:51:28,409 DEBUG   HandlerThread:17543 [meta.py:__init__():35] meta init
+2022-07-07 14:51:28,409 DEBUG   HandlerThread:17543 [meta.py:__init__():49] meta init done
+2022-07-07 14:51:28,410 DEBUG   HandlerThread:17543 [meta.py:probe():209] probe
+2022-07-07 14:51:28,418 DEBUG   HandlerThread:17543 [meta.py:_setup_git():199] setup git
+2022-07-07 14:51:28,426 DEBUG   HandlerThread:17543 [meta.py:_setup_git():206] setup git done
+2022-07-07 14:51:28,427 DEBUG   HandlerThread:17543 [meta.py:_save_pip():53] save pip
+2022-07-07 14:51:28,427 DEBUG   HandlerThread:17543 [meta.py:_save_pip():67] save pip done
+2022-07-07 14:51:28,427 DEBUG   HandlerThread:17543 [meta.py:_save_conda():74] save conda
+2022-07-07 14:51:29,289 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/conda-environment.yaml
+2022-07-07 14:51:29,289 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/wandb-summary.json
+2022-07-07 14:51:29,289 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/requirements.txt
+2022-07-07 14:51:29,702 DEBUG   HandlerThread:17543 [meta.py:_save_conda():84] save conda done
+2022-07-07 14:51:29,702 DEBUG   HandlerThread:17543 [meta.py:probe():247] probe done
+2022-07-07 14:51:29,705 DEBUG   SenderThread:17543 [sender.py:send():235] send: files
+2022-07-07 14:51:29,705 INFO    SenderThread:17543 [sender.py:_save_file():949] saving file wandb-metadata.json with policy now
+2022-07-07 14:51:29,709 DEBUG   HandlerThread:17543 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-07 14:51:29,709 DEBUG   SenderThread:17543 [sender.py:send_request():249] send_request: stop_status
+2022-07-07 14:51:29,880 DEBUG   SenderThread:17543 [sender.py:send():235] send: telemetry
+2022-07-07 14:51:30,289 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/conda-environment.yaml
+2022-07-07 14:51:30,294 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/wandb-metadata.json
+2022-07-07 14:51:30,294 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_created():256] file/dir created: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:30,298 INFO    Thread-11 :17543 [upload_job.py:push():132] Uploaded file /tmp/tmpy28igmrwwandb/1368lyti-wandb-metadata.json
+2022-07-07 14:51:32,289 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:34,290 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:36,291 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:38,291 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:40,292 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:42,292 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:44,293 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:44,881 DEBUG   HandlerThread:17543 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-07 14:51:44,881 DEBUG   SenderThread:17543 [sender.py:send_request():249] send_request: stop_status
+2022-07-07 14:51:46,294 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:48,294 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:50,295 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:52,296 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:54,296 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:56,297 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:56,619 DEBUG   SenderThread:17543 [sender.py:send():235] send: stats
+2022-07-07 14:51:58,297 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:51:59,298 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/config.yaml
+2022-07-07 14:52:00,052 DEBUG   HandlerThread:17543 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-07 14:52:00,052 DEBUG   SenderThread:17543 [sender.py:send_request():249] send_request: stop_status
+2022-07-07 14:52:00,298 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:02,298 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:04,299 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:06,300 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:08,300 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:10,301 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:12,302 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:14,302 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:15,332 DEBUG   HandlerThread:17543 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-07 14:52:15,333 DEBUG   SenderThread:17543 [sender.py:send_request():249] send_request: stop_status
+2022-07-07 14:52:16,303 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:18,304 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:20,304 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:22,305 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:24,305 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:26,306 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:26,819 DEBUG   SenderThread:17543 [sender.py:send():235] send: stats
+2022-07-07 14:52:28,306 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:30,307 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:30,509 DEBUG   HandlerThread:17543 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-07 14:52:30,510 DEBUG   SenderThread:17543 [sender.py:send_request():249] send_request: stop_status
+2022-07-07 14:52:32,308 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:34,308 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:36,309 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:38,309 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:40,310 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:42,310 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:44,283 WARNING MainThread:17543 [internal.py:wandb_internal():153] Internal process interrupt: 1
+2022-07-07 14:52:44,311 INFO    Thread-7  :17543 [dir_watcher.py:_on_file_modified():269] file/dir modified: /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220707_145127-rjgki03l/files/output.log
+2022-07-07 14:52:44,319 DEBUG   SenderThread:17543 [sender.py:send():235] send: telemetry
+2022-07-07 14:52:44,319 DEBUG   SenderThread:17543 [sender.py:send():235] send: telemetry

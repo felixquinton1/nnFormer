@@ -1,0 +1,25 @@
+2022-07-11 10:47:42,768 INFO    MainThread:16165 [wandb_setup.py:_flush():76] Loading settings from /home/felix/.config/wandb/settings
+2022-07-11 10:47:42,768 INFO    MainThread:16165 [wandb_setup.py:_flush():76] Loading settings from /home/felix/Bureau/nnFormer/nnformer/run/wandb/settings
+2022-07-11 10:47:42,769 INFO    MainThread:16165 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2022-07-11 10:47:42,769 INFO    MainThread:16165 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'nnformer/run/run_training.py', 'program': '/home/felix/Bureau/nnFormer/nnformer/run/run_training.py'}
+2022-07-11 10:47:42,769 INFO    MainThread:16165 [wandb_init.py:_log_setup():428] Logging user logs to /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220711_104742-1lpbf6e1/logs/debug.log
+2022-07-11 10:47:42,769 INFO    MainThread:16165 [wandb_init.py:_log_setup():429] Logging internal logs to /home/felix/Bureau/nnFormer/nnformer/run/wandb/run-20220711_104742-1lpbf6e1/logs/debug-internal.log
+2022-07-11 10:47:42,770 INFO    MainThread:16165 [wandb_init.py:init():462] calling init triggers
+2022-07-11 10:47:42,770 INFO    MainThread:16165 [wandb_init.py:init():466] wandb.init called with sweep_config: {}
+config: {'network': '3d_fullres', 'network_trainer': 'nnFormerTrainerV2_nnformer_acdc', 'task': '001', 'fold': '0', 'validation_only': False, 'continue_training': False, 'p': 'nnFormerPlansv2.1', 'use_compressed_data': False, 'deterministic': False, 'npz': False, 'find_lr': False, 'valbest': False, 'fp32': False, 'val_folder': 'validation_raw', 'disable_saving': False, 'disable_postprocessing_on_folds': False, 'val_disable_overwrite': True, 'disable_next_stage_pred': False, 'pretrained_weights': None}
+2022-07-11 10:47:42,770 INFO    MainThread:16165 [wandb_init.py:init():515] starting backend
+2022-07-11 10:47:42,770 INFO    MainThread:16165 [backend.py:_multiprocessing_setup():99] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2022-07-11 10:47:42,788 INFO    MainThread:16165 [backend.py:ensure_launched():217] starting backend process...
+2022-07-11 10:47:42,802 INFO    MainThread:16165 [backend.py:ensure_launched():222] started backend process with pid: 16211
+2022-07-11 10:47:42,805 INFO    MainThread:16165 [wandb_init.py:init():525] backend started and connected
+2022-07-11 10:47:42,820 INFO    MainThread:16165 [wandb_init.py:init():596] updated telemetry
+2022-07-11 10:47:42,847 INFO    MainThread:16165 [wandb_init.py:init():628] communicating run to backend with 30 second timeout
+2022-07-11 10:47:44,074 INFO    MainThread:16165 [wandb_run.py:_on_init():1924] communicating current version
+2022-07-11 10:47:44,138 INFO    MainThread:16165 [wandb_run.py:_on_init():1928] got version response upgrade_message: "wandb version 0.12.21 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-07-11 10:47:44,139 INFO    MainThread:16165 [wandb_init.py:init():662] starting run threads in backend
+2022-07-11 10:47:45,461 INFO    MainThread:16165 [wandb_run.py:_console_start():1898] atexit reg
+2022-07-11 10:47:45,461 INFO    MainThread:16165 [wandb_run.py:_redirect():1771] redirect: SettingsConsole.REDIRECT
+2022-07-11 10:47:45,464 INFO    MainThread:16165 [wandb_run.py:_redirect():1776] Redirecting console.
+2022-07-11 10:47:45,466 INFO    MainThread:16165 [wandb_run.py:_redirect():1832] Redirects installed.
+2022-07-11 10:47:45,466 INFO    MainThread:16165 [wandb_init.py:init():688] run started, returning control to user process

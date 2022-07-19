@@ -35,7 +35,7 @@ from torch.cuda.amp import autocast
 from nnformer.training.learning_rate.poly_lr import poly_lr
 from batchgenerators.utilities.file_and_folder_operations import *
 
-
+import time
     
 class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
     """
@@ -265,7 +265,9 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
         :param run_online_evaluation:
         :return:
         """
+        start_time = time.time()
         data_dict = next(data_generator)
+        load_time = time.time()
         data = data_dict['data']
         target = data_dict['target']
         data = maybe_to_torch(data)
@@ -278,10 +280,11 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
         self.optimizer.zero_grad()
         if self.fp16:
             with autocast():
+                before_calc_time = time.time()
                 output = self.network(data)
                 del data
                 l = self.loss(output, target)
-
+                calc_time = time.time()
             if do_backprop:
                 self.amp_grad_scaler.scale(l).backward()
                 self.amp_grad_scaler.unscale_(self.optimizer)
@@ -302,8 +305,10 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
             self.run_online_evaluation(output, target)
 
         del target
-
-        return l.detach().cpu().numpy()
+        back_time = time.time()
+        timer = [load_time - start_time, before_calc_time - load_time, calc_time - before_calc_time,
+                 back_time - calc_time]
+        return l.detach().cpu().numpy(), timer
 
     def do_split(self):
         """

@@ -111,6 +111,13 @@ def main():
 
     args = parser.parse_args()
     with wandb.init(project="delineate-seg-sota", name='vanilla_nnformer_test', config=args):
+        seed = 1
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        np.random.seed(seed)
+        random.seed(seed)
+        torch.backends.cudnn.deterministic = True
+
         task = args.task
         fold = args.fold
         network = args.network

@@ -249,9 +249,9 @@ class GenericPreprocessor(object):
         # remove nans
         data[np.isnan(data)] = 0
 
-        data, seg = resample_patient(data, seg, np.array(original_spacing_transposed), target_spacing, 3, 1,
-                                     force_separate_z=force_separate_z, order_z_data=0, order_z_seg=0,
-                                     separate_z_anisotropy_threshold=self.resample_separate_z_anisotropy_threshold)
+        # data, seg = resample_patient(data, seg, np.array(original_spacing_transposed), target_spacing, 3, 1,
+        #                              force_separate_z=force_separate_z, order_z_data=0, order_z_seg=0,
+        #                              separate_z_anisotropy_threshold=self.resample_separate_z_anisotropy_threshold)
         after = {
             'spacing': target_spacing,
             'data.shape (data is resampled)': data.shape
@@ -296,13 +296,13 @@ class GenericPreprocessor(object):
                 data[c] = (data[c] - mn) / sd
                 if use_nonzero_mask[c]:
                     data[c][seg[-1] < 0] = 0
-            else:
-                if use_nonzero_mask[c]:
-                    mask = seg[-1] >= 0
-                else:
-                    mask = np.ones(seg.shape[1:], dtype=bool)
-                data[c][mask] = (data[c][mask] - data[c][mask].mean()) / (data[c][mask].std() + 1e-8)
-                data[c][mask == 0] = 0
+            # else:
+                # if use_nonzero_mask[c]:
+                #     mask = seg[-1] >= 0
+                # else:
+                #     mask = np.ones(seg.shape[1:], dtype=bool)
+                # data[c][mask] = (data[c][mask] - data[c][mask].mean()) / (data[c][mask].std() + 1e-8)
+                # data[c][mask == 0] = 0
         return data, seg, properties
 
     def preprocess_test_case(self, data_files, target_spacing, seg_file=None, force_separate_z=None):
