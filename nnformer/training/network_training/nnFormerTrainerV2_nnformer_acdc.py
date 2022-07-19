@@ -348,26 +348,24 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                 self.print_to_log_file("The split file contains %d splits." % len(splits))
 
             self.print_to_log_file("Desired fold for training: %d" % self.fold)
-            splits[self.fold]['train'] = np.array(['im_001', 'im_002', 'im_003',
-                                                   'im_004', 'im_005', 'im_016',
+            splits[self.fold]['train'] = np.array(['im_000', 'im_001', 'im_002', 'im_003',
+                                                   'im_004', 'im_006',
                                                    'im_007', 'im_008', 'im_009',
-                                                   'im_010', 'im_011', 'im_012',
-                                                   'im_013', 'im_014', 'im_015',
-                                                   'im_016', 'im_017', 'im_018',
-                                                   'im_019', 'im_020', 'im_021',
+                                                    'im_011',
+                                                   'im_013', 'im_014',
+                                                   'im_016', 'im_017', 'im_020',
                                                    'im_022', 'im_023', 'im_024',
                                                    'im_025', 'im_026', 'im_027',
-                                                   'im_028', 'im_029', 'im_030',
-                                                   'im_031', 'im_032', 'im_033',
-                                                   'im_034', 'im_035', 'im_036',
-                                                   'im_037', 'im_038', 'im_039',
-                                                   'im_040'
+                                                   'im_028', 'im_030',
+                                                   'im_031', 'im_033',
+                                                   'im_035',
+                                                   'im_040', 'im_041', 'im_043',
+                                                 'im_044','im_046',
+                                                 'im_047', 'im_049', 'im_051', 'im_052', 'im_054'
                                                    ])
-            splits[self.fold]['val'] = np.array(['im_041', 'im_042','im_043',
-                                                 'im_044', 'im_045', 'im_046',
-                                                 'im_047', 'im_048', 'im_049',
-                                                 'im_050', 'im_051', 'im_052',
-                                                 'im_053', 'im_054', 'im_055'
+            splits[self.fold]['val'] = np.array(['im_010', 'im_012', 'im_015',  'im_018',
+                                                 'im_019',
+                                                 'im_021',  'im_029', 'im_032', 'im_034'
                                                  ])
             if self.fold < len(splits):
                 tr_keys = splits[self.fold]['train']
