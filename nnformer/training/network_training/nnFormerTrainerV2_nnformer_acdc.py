@@ -177,8 +177,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                                 deep_supervision=self.deep_supervision)
         if self.load_pretrain_weight:
             # checkpoint = torch.load("/home/felix/Bureau/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
-            checkpoint = torch.load("/work/imvia/fq848192/db_test/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
-            # checkpoint = torch.load("/work/imvia/sa6275le/db_test/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
+            checkpoint = torch.load("/work/imvia/sa6275le/db_test/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
             ck={}
             
             for i in self.network.state_dict():
@@ -434,7 +433,6 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                                                              self.data_aug_params['rotation_z'],
                                                              self.data_aug_params['scale_range'])
             self.basic_generator_patch_size = np.array([self.patch_size[0]] + list(self.basic_generator_patch_size))
-            self.basic_generator_patch_size = np.array([self.patch_size[0]] + [160, 160])
             patch_size_for_spatialtransform = self.patch_size[1:]
         else:
             self.basic_generator_patch_size = get_patch_size(self.patch_size, self.data_aug_params['rotation_x'],

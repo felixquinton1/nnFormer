@@ -38,7 +38,6 @@ PLEASE READ paths.md FOR INFORMATION TO HOW TO SET THIS UP
 # preprocessing_output_dir = "/work/imvia/sa6275le/db_test/db_nnFormer/nnFormer_preprocessed"
 # network_training_output_dir_base = "/work/imvia/sa6275le/db_test/db_nnFormer/nnFormer_trained_models"
 
-
 base = "/work/imvia/fq848192/db_test/db_nnFormer/nnFormer_raw"
 preprocessing_output_dir = "/work/imvia/fq848192/db_test/db_nnFormer/nnFormer_preprocessed"
 network_training_output_dir_base = "/work/imvia/fq848192/db_test/db_nnFormer/nnFormer_trained_models"

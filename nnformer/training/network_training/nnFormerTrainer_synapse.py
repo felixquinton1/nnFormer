@@ -84,7 +84,7 @@ class nnFormerTrainer_synapse(NetworkTrainer):
         self.dataset_directory = dataset_directory
         self.output_folder_base = self.output_folder
         self.fold = fold
-        test = 0
+
         self.plans = None
 
         # if we are running inference only then the self.dataset_directory is set (due to checkpoint loading) but it
