@@ -1,0 +1,29 @@
+{
+    "os": "Linux-5.14.0-1045-oem-x86_64-with-debian-bullseye-sid",
+    "python": "3.6.13",
+    "heartbeatAt": "2022-07-21T08:03:42.599365",
+    "startedAt": "2022-07-21T08:03:41.613207",
+    "docker": null,
+    "gpu": "NVIDIA RTX A5000 Laptop GPU",
+    "gpu_count": 1,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "3d_fullres",
+        "nnFormerTrainerV2_nnformer_acdc",
+        "001",
+        "0"
+    ],
+    "state": "running",
+    "program": "/home/felix/Bureau/nnFormer/nnformer/run/run_training.py",
+    "codePath": "nnformer/run/run_training.py",
+    "git": {
+        "remote": "git@github.com:felixquinton1/nnFormer.git",
+        "commit": "0e273cb436a19ba8a4d68fe7f70f67b6424a7c6e"
+    },
+    "email": "felix_quinton@etu.u-bourgogne.fr",
+    "root": "/home/felix/Bureau/nnFormer",
+    "host": "felix-Precision-7560",
+    "username": "felix",
+    "executable": "/home/felix/anaconda3/envs/nnFormer2/bin/python"
+}

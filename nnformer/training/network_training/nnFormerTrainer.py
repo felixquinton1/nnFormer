@@ -181,7 +181,6 @@ class nnFormerTrainer(NetworkTrainer):
                                                              self.data_aug_params['rotation_z'],
                                                              self.data_aug_params['scale_range'])
             self.basic_generator_patch_size = np.array([self.patch_size[0]] + list(self.basic_generator_patch_size))
-            print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
             print(self.basic_generator_patch_size)
             patch_size_for_spatialtransform = self.patch_size[1:]
         else:
@@ -211,7 +210,6 @@ class nnFormerTrainer(NetworkTrainer):
         self.process_plans(self.plans)
 
         self.setup_DA_params()
-        print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
         print(self.basic_generator_patch_size)
         if training:
             self.folder_with_preprocessed_data = join(self.dataset_directory, self.plans['data_identifier'] +
@@ -264,6 +262,7 @@ class nnFormerTrainer(NetworkTrainer):
         dropout_op_kwargs = {'p': 0, 'inplace': True}
         net_nonlin = nn.LeakyReLU
         net_nonlin_kwargs = {'negative_slope': 1e-2, 'inplace': True}
+        print("je passe ici")
         self.network = Generic_UNet(self.num_input_channels, self.base_num_features, self.num_classes, net_numpool,
                                     self.conv_per_stage, 2, conv_op, norm_op, norm_op_kwargs, dropout_op,
                                     dropout_op_kwargs,

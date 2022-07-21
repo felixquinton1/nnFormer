@@ -475,9 +475,9 @@ class BasicLayer(nn.Module):
                  ):
         super().__init__()
         self.window_size = window_size
-        self.shift_size = [window_size[0] // 2,window_size[1] // 2,window_size[2] // 2]
+        self.shift_size = [window_size[0] // 2, window_size[1] // 2, window_size[2] // 2]
         self.depth = depth
-        self.i_layer=i_layer
+        self.i_layer = i_layer
         # build blocks
         
         self.blocks = nn.ModuleList([
@@ -486,7 +486,7 @@ class BasicLayer(nn.Module):
                 input_resolution=input_resolution,
                 num_heads=num_heads,
                 window_size=window_size,
-                shift_size=[0,0,0] if (i % 2 == 0) else self.shift_size,
+                shift_size=[0, 0, 0] if (i % 2 == 0) else self.shift_size,
                 mlp_ratio=mlp_ratio,
                 qkv_bias=qkv_bias,
                 qk_scale=qk_scale,
@@ -498,11 +498,11 @@ class BasicLayer(nn.Module):
         # patch merging layer
         if downsample is not None:
             
-            if i_layer==1:
+            if i_layer == 1:
                 self.downsample = downsample(dim=dim, norm_layer=norm_layer,tag=1)
-            elif i_layer==2:
+            elif i_layer == 2:
                 self.downsample = downsample(dim=dim, norm_layer=norm_layer,tag=2)
-            elif i_layer==0:
+            elif i_layer == 0:
                 self.downsample = downsample(dim=dim, norm_layer=norm_layer,tag=0)        
             else:
                 self.downsample = None
@@ -689,7 +689,7 @@ class Encoder(nn.Module):
     def __init__(self,
                  pretrain_img_size=224,
                  patch_size=4,
-                 in_chans=1  ,
+                 in_chans=1,
                  embed_dim=96,
                  depths=[2, 2, 2, 2],
                  num_heads=[4, 8, 16, 32],

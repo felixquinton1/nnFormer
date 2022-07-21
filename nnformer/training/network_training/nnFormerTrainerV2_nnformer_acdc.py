@@ -176,8 +176,8 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                                 down_stride=self.down_stride,
                                 deep_supervision=self.deep_supervision)
         if self.load_pretrain_weight:
-            # checkpoint = torch.load("/home/felix/Bureau/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
-            checkpoint = torch.load("/work/imvia/sa6275le/db_test/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
+            checkpoint = torch.load("/home/felix/Bureau/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
+            # checkpoint = torch.load("/work/imvia/sa6275le/db_test/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
             ck={}
             
             for i in self.network.state_dict():
