@@ -433,6 +433,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                                                              self.data_aug_params['rotation_z'],
                                                              self.data_aug_params['scale_range'])
             self.basic_generator_patch_size = np.array([self.patch_size[0]] + list(self.basic_generator_patch_size))
+            self.basic_generator_patch_size = np.array([self.patch_size[0]] + [160, 160])
             patch_size_for_spatialtransform = self.patch_size[1:]
         else:
             self.basic_generator_patch_size = get_patch_size(self.patch_size, self.data_aug_params['rotation_x'],
