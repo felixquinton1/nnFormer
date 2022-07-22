@@ -1,0 +1,1 @@
+{"train loss": 0.24186065793037415, "epoch": 1, "_timestamp": 1658475705, "_runtime": 119, "_step": 3, "val_loss": 0.24186065793037415, "val_acc": 0.23602364026010036, "liver_acc": 0.45114246010780334, "tumor_acc": 0.020904820412397385, "val_acc_vanilla": 0.34236695371733733, "liver_acc_vanilla": 0.6657475516792157, "tumor_acc_vanilla": 0.018986355755458956}
